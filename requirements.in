@@ -1,0 +1,7 @@
+xmltodict
+protobuf
+grpcio
+grpcio-tools
+avro
+pyyaml
+msgpack

@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package struct;
+
+message Struct {
+  optional string string_field = 1;
+  repeated string array_field = 2;
+  map<string, string> dictionary_field = 3;
+  optional int64 integer_field = 4;
+  optional double float_field = 5;
+}
+
+message RootedStruct {
+  Struct root = 6;
+}

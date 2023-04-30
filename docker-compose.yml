@@ -1,0 +1,99 @@
+version: "3"
+
+services:
+  native_serializer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      SERIALIZER_TYPE: NATIVE
+      PORT: 2001
+      MULTICAST_HOST: 224.1.1.1
+      MULTICAST_PORT: 2001
+  xml_serializer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      SERIALIZER_TYPE: XML
+      PORT: 2001
+      MULTICAST_HOST: 224.1.1.1
+      MULTICAST_PORT: 2001
+  json_serializer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      SERIALIZER_TYPE: JSON
+      PORT: 2001
+      MULTICAST_HOST: 224.1.1.1
+      MULTICAST_PORT: 2001
+  proto_serializer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      SERIALIZER_TYPE: PROTO
+      PORT: 2001
+      MULTICAST_HOST: 224.1.1.1
+      MULTICAST_PORT: 2001
+  avro_serializer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      SERIALIZER_TYPE: AVRO
+      PORT: 2001
+      MULTICAST_HOST: 224.1.1.1
+      MULTICAST_PORT: 2001
+  yaml_serializer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      SERIALIZER_TYPE: YAML
+      PORT: 2001
+      MULTICAST_HOST: 224.1.1.1
+      MULTICAST_PORT: 2001
+  msgpack_serializer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      SERIALIZER_TYPE: MSGPACK
+      PORT: 2001
+      MULTICAST_HOST: 224.1.1.1
+      MULTICAST_PORT: 2001
+  proxy_server:
+    build:
+      context: .
+      dockerfile: proxy.Dockerfile
+    restart: always
+    environment:
+      PROXY_PORT: 2000
+      NATIVE_HOST: native_serializer
+      NATIVE_PORT: 2001
+      XML_HOST: xml_serializer
+      XML_PORT: 2001
+      JSON_HOST: json_serializer
+      JSON_PORT: 2001
+      PROTO_HOST: proto_serializer
+      PROTO_PORT: 2001
+      AVRO_HOST: avro_serializer
+      AVRO_PORT: 2001
+      YAML_HOST: yaml_serializer
+      YAML_PORT: 2001
+      MSGPACK_HOST: msgpack_serializer
+      MSGPACK_PORT: 2001
+      MULTICAST_HOST: 224.1.1.1
+      MULTICAST_PORT: 2001
+    ports:
+      - "2000:2000/udp"
+    depends_on:
+      - native_serializer
+      - xml_serializer
+      - json_serializer
+      - proto_serializer
+      - avro_serializer
+      - yaml_serializer
+      - msgpack_serializer
